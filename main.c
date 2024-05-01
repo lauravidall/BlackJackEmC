@@ -50,6 +50,7 @@ int main(){
     printarLista(head);
     freeLista(&head);
     return EXIT_SUCCESS;
+    
 }
 
 void ordenarLista(struct highscore **head, struct jogador player){
@@ -61,7 +62,7 @@ void ordenarLista(struct highscore **head, struct jogador player){
     novo->player = player;
     novo->prox = NULL;
 
-    if(*head==NULL||(*head)->player.pontuacao<=player.pontuacao){
+    if(*head==NULL || (*head)->player.pontuacao<=player.pontuacao){
         novo->prox = *head;
         *head = novo;
     }else{

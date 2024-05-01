@@ -1,0 +1,447 @@
+printf("|----------|");
+printf("| +        |");
+printf("|  +       |");
+printf("|    A     |");
+printf("|      +   |");
+printf("|        + |");
+printf("|----------|");
+
+printf("|----------|");
+printf("| +        |");
+printf("|  +       |");
+printf("|    K     |");
+printf("|      +   |");
+printf("|        + |");
+printf("|----------|");
+
+printf("|----------|");
+printf("| +        |");
+printf("|  +       |");
+printf("|    Q     |");
+printf("|      +   |");
+printf("|        + |");
+printf("|----------|");
+
+printf("|----------|");
+printf("| +        |");
+printf("|  +       |");
+printf("|    J     |");
+printf("|      +   |");
+printf("|        + |");
+printf("|----------|");
+
+printf("|----------|");
+printf("| +        |");
+printf("|  +       |");
+printf("|    10    |");
+printf("|      +   |");
+printf("|        + |");
+printf("|----------|");
+
+printf("|----------|");
+printf("| +        |");
+printf("|  +       |");
+printf("|    9     |");
+printf("|      +   |");
+printf("|        + |");
+printf("|----------|");
+
+printf("|----------|");
+printf("| +        |");
+printf("|  +       |");
+printf("|    8     |");
+printf("|      +   |");
+printf("|        + |");
+printf("|----------|");
+
+printf("|----------|");
+printf("| +        |");
+printf("|  +       |");
+printf("|    7     |");
+printf("|      +   |");
+printf("|        + |");
+printf("|----------|");
+
+printf("|----------|");
+printf("| +        |");
+printf("|  +       |");
+printf("|    6     |");
+printf("|      +   |");
+printf("|        + |");
+printf("|----------|");
+
+printf("|----------|");
+printf("| +        |");
+printf("|  +       |");
+printf("|    5     |");
+printf("|      +   |");
+printf("|        + |");
+printf("|----------|");
+
+printf("|----------|");
+printf("| +        |");
+printf("|  +       |");
+printf("|    4     |");
+printf("|      +   |");
+printf("|        + |");
+printf("|----------|");
+
+printf("|----------|");
+printf("| +        |");
+printf("|  +       |");
+printf("|    3     |");
+printf("|      +   |");
+printf("|        + |");
+printf("|----------|");
+
+printf("|----------|");
+printf("| +        |");
+printf("|  +       |");
+printf("|    2     |");
+printf("|      +   |");
+printf("|        + |");
+printf("|----------|");
+
+printf("|----------|");
+printf("| +        |");
+printf("|  +       |");
+printf("|    1     |");
+printf("|      +   |");
+printf("|        + |");
+printf("|----------|");
+
+printf("|----------|");
+printf("| -        |");
+printf("|  -       |");
+printf("|    A     |");
+printf("|      -   |");
+printf("|        - |");
+printf("|----------|");
+
+printf("|----------|");
+printf("| -        |");
+printf("|  -       |");
+printf("|    K     |");
+printf("|      -   |");
+printf("|        - |");
+printf("|----------|");
+
+printf("|----------|");
+printf("| -        |");
+printf("|  -       |");
+printf("|    Q     |");
+printf("|      -   |");
+printf("|        - |");
+printf("|----------|");
+
+printf("|----------|");
+printf("| -        |");
+printf("|  -       |");
+printf("|    J     |");
+printf("|      -   |");
+printf("|        - |");
+printf("|----------|");
+
+printf("|----------|");
+printf("| -        |");
+printf("|  -       |");
+printf("|    10    |");
+printf("|      -   |");
+printf("|        - |");
+printf("|----------|");
+
+printf("|----------|");
+printf("| -        |");
+printf("|  -       |");
+printf("|    9     |");
+printf("|      -   |");
+printf("|        - |");
+printf("|----------|");
+
+printf("|----------|");
+printf("| -        |");
+printf("|  -       |");
+printf("|    8     |");
+printf("|      -   |");
+printf("|        - |");
+printf("|----------|");
+
+printf("|----------|");
+printf("| -        |");
+printf("|  -       |");
+printf("|    7     |");
+printf("|      -   |");
+printf("|        - |");
+printf("|----------|");
+
+printf("|----------|");
+printf("| -        |");
+printf("|  -       |");
+printf("|    6     |");
+printf("|      -   |");
+printf("|        - |");
+printf("|----------|");
+
+printf("|----------|");
+printf("| -        |");
+printf("|  -       |");
+printf("|    5     |");
+printf("|      -   |");
+printf("|        - |");
+printf("|----------|");
+
+printf("|----------|");
+printf("| -        |");
+printf("|  -       |");
+printf("|    4     |");
+printf("|      -   |");
+printf("|        - |");
+printf("|----------|");
+
+printf("|----------|");
+printf("| -        |");
+printf("|  -       |");
+printf("|    3     |");
+printf("|      -   |");
+printf("|        - |");
+printf("|----------|");
+
+printf("|----------|");
+printf("| -        |");
+printf("|  -       |");
+printf("|    2     |");
+printf("|      -   |");
+printf("|        - |");
+printf("|----------|");
+
+printf("|----------|");
+printf("| -        |");
+printf("|  -       |");
+printf("|    1     |");
+printf("|      -   |");
+printf("|        - |");
+printf("|----------|");
+
+printf("|----------|");
+printf("| !        |");
+printf("|  !       |");
+printf("|    A     |");
+printf("|      !   |");
+printf("|        ! |");
+printf("|----------|");
+
+printf("|----------|");
+printf("| !        |");
+printf("|  !       |");
+printf("|    K     |");
+printf("|      !   |");
+printf("|        ! |");
+printf("|----------|");
+
+printf("|----------|");
+printf("| !        |");
+printf("|  !       |");
+printf("|    Q     |");
+printf("|      !   |");
+printf("|        ! |");
+printf("|----------|");
+
+printf("|----------|");
+printf("| !        |");
+printf("|  !       |");
+printf("|    J     |");
+printf("|      !   |");
+printf("|        ! |");
+printf("|----------|");
+
+printf("|----------|");
+printf("| !        |");
+printf("|  !       |");
+printf("|    10    |");
+printf("|      !   |");
+printf("|        ! |");
+printf("|----------|");
+
+printf("|----------|");
+printf("| !        |");
+printf("|  !       |");
+printf("|    9     |");
+printf("|      !   |");
+printf("|        ! |");
+printf("|----------|");
+
+printf("|----------|");
+printf("| !        |");
+printf("|  !       |");
+printf("|    8     |");
+printf("|      !   |");
+printf("|        ! |");
+printf("|----------|");
+
+printf("|----------|");
+printf("| !        |");
+printf("|  !       |");
+printf("|    7     |");
+printf("|      !   |");
+printf("|        ! |");
+printf("|----------|");
+
+printf("|----------|");
+printf("| !        |");
+printf("|  !       |");
+printf("|    6     |");
+printf("|      !   |");
+printf("|        ! |");
+printf("|----------|");
+
+printf("|----------|");
+printf("| !        |");
+printf("|  !       |");
+printf("|    5     |");
+printf("|      !   |");
+printf("|        ! |");
+printf("|----------|");
+
+printf("|----------|");
+printf("| !        |");
+printf("|  !       |");
+printf("|    4     |");
+printf("|      !   |");
+printf("|        ! |");
+printf("|----------|");
+
+printf("|----------|");
+printf("| !        |");
+printf("|  !       |");
+printf("|    3     |");
+printf("|      !   |");
+printf("|        ! |");
+printf("|----------|");
+
+printf("|----------|");
+printf("| !        |");
+printf("|  !       |");
+printf("|    2     |");
+printf("|      !   |");
+printf("|        ! |");
+printf("|----------|");
+
+printf("|----------|");
+printf("| !        |");
+printf("|  !       |");
+printf("|    1     |");
+printf("|      !   |");
+printf("|        ! |");
+printf("|----------|");
+
+printf("|----------|");
+printf("| ?        |");
+printf("|  ?       |");
+printf("|    A     |");
+printf("|      ?   |");
+printf("|        ? |");
+printf("|----------|");
+
+printf("|----------|");
+printf("| ?        |");
+printf("|  ?       |");
+printf("|    K     |");
+printf("|      ?   |");
+printf("|        ? |");
+printf("|----------|");
+
+printf("|----------|");
+printf("| ?        |");
+printf("|  ?       |");
+printf("|    Q     |");
+printf("|      ?   |");
+printf("|        ? |");
+printf("|----------|");
+
+printf("|----------|");
+printf("| ?        |");
+printf("|  ?       |");
+printf("|    J     |");
+printf("|      ?   |");
+printf("|        ? |");
+printf("|----------|");
+
+printf("|----------|");
+printf("| ?        |");
+printf("|  ?       |");
+printf("|    10    |");
+printf("|      ?   |");
+printf("|        ? |");
+printf("|----------|");
+
+printf("|----------|");
+printf("| ?        |");
+printf("|  ?       |");
+printf("|    9     |");
+printf("|      ?   |");
+printf("|        ? |");
+printf("|----------|");
+
+printf("|----------|");
+printf("| ?        |");
+printf("|  ?       |");
+printf("|    8     |");
+printf("|      ?   |");
+printf("|        ? |");
+printf("|----------|");
+
+printf("|----------|");
+printf("| ?        |");
+printf("|  ?       |");
+printf("|    7     |");
+printf("|      ?   |");
+printf("|        ? |");
+printf("|----------|");
+
+printf("|----------|");
+printf("| ?        |");
+printf("|  ?       |");
+printf("|    6     |");
+printf("|      ?   |");
+printf("|        ? |");
+printf("|----------|");
+
+printf("|----------|");
+printf("| ?        |");
+printf("|  ?       |");
+printf("|    5     |");
+printf("|      ?   |");
+printf("|        ? |");
+printf("|----------|");
+
+printf("|----------|");
+printf("| ?        |");
+printf("|  ?       |");
+printf("|    4     |");
+printf("|      ?   |");
+printf("|        ? |");
+printf("|----------|");
+
+printf("|----------|");
+printf("| ?        |");
+printf("|  ?       |");
+printf("|    3     |");
+printf("|      ?   |");
+printf("|        ? |");
+printf("|----------|");
+
+printf("|----------|");
+printf("| ?        |");
+printf("|  ?       |");
+printf("|    2     |");
+printf("|      ?   |");
+printf("|        ? |");
+printf("|----------|");
+
+printf("|----------|");
+printf("| ?        |");
+printf("|  ?       |");
+printf("|    1     |");
+printf("|      ?   |");
+printf("|        ? |");
+printf("|----------|");
