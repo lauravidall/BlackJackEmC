@@ -23,7 +23,13 @@ int main(){
     FILE *fptr;
     struct jogador player;
 
-    printf("Digite o nome do jogador: ");
+    printf("---------------------------\n");
+    printf("|                         |\n");
+    printf("| BEM-VINDO AO CASSINO BJ |\n");
+    printf("|                         |\n");
+    printf("---------------------------\n");
+
+    printf("\nDigite o nome do jogador: ");
     scanf("%s", player.nome);
     player.pontuacao = 10;  
     
