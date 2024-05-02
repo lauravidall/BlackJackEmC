@@ -33,6 +33,8 @@ void printarListaCirc(struct deck *head, struct deck *tail);
 void resetarJogo(struct deck **head, struct deck **tail);
 void excluirCarta(struct deck **head, struct deck **tail, char carta[]);
 void adicionandoCartas(struct deck **head, struct deck **tail);
+int contarCartas(struct deck *head);
+void extrairCarta(struct deck **head, struct deck **tail, struct carta *destino);
 
 int main(){
 
@@ -75,13 +77,32 @@ int main(){
     adicionandoCartas(&head,&tail);
     printarListaCirc(head,tail);
 
-    printf("\npos remover: "); //resetar jogo --> ok
-    resetarJogo(&head, &tail);
-    printarListaCirc(head,tail);
-    printf("removendo ok!\n"); //resetar jogo --> ok
+    int resp = contarCartas(head); //contando a quantidade certa de cartas no baralho
+    printf("%d",resp);
+
+    // printf("\npos remover: "); //resetar jogo --> ok
+    // resetarJogo(&head, &tail);
+    // printarListaCirc(head,tail);
+    // printf("removendo ok!\n"); //resetar jogo --> ok
 
     struct carta arrayDealer[2];
     struct carta arrayJogador[12];
+
+    for(int i=0;i<2;i++){ 
+        extrairCarta(&head,&tail,&arrayDealer[i]);
+    }
+    for(int i=0;i<2;i++){ 
+        extrairCarta(&head,&tail,&arrayJogador[i]);
+    }
+    printf("\n");
+    for(int i=0;i<2;i++){ 
+        printf("%s e ",arrayDealer[i].carta);
+    }
+    printf("\n");
+    for(int i=0;i<2;i++){
+        printf("%s e ",arrayJogador[i].carta);
+    }
+
     
 }
 
@@ -261,4 +282,46 @@ void adicionandoCartas(struct deck **head, struct deck **tail){
     inserirNaListaCirc(head,tail, "A?");
     inserirNaListaCirc(head,tail, "A+");
     inserirNaListaCirc(head,tail, "A-");
+}
+
+int contarCartas(struct deck *head){
+    if (head == NULL) return 0;
+    struct deck *temp = head;
+    int count = 0;
+    do {
+        count++;
+        temp = temp->prox;
+    } while (temp != head);
+    return count;
+}
+
+void extrairCarta(struct deck **head, struct deck **tail, struct carta *destino) {
+    int totalCartas = contarCartas(*head);
+
+    if (totalCartas == 0){
+        return;
+    } 
+
+    int cartaIndex = rand() % totalCartas;
+    struct deck *temp = *head;
+
+    for (int i = 0; i < cartaIndex; i++) {
+        temp = temp->prox;
+    }
+
+    strcpy(destino->carta, temp->carta);
+
+    if (temp->prox == temp) {
+        *head = *tail = NULL;
+    } else {
+        temp->ant->prox = temp->prox;
+        temp->prox->ant = temp->ant;
+        if (temp == *head){
+            *head = temp->prox;
+        } 
+        if (temp == *tail){
+            *tail = temp->ant;
+        } 
+    }
+    free(temp);
 }
