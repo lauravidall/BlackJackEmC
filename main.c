@@ -285,41 +285,39 @@ void adicionandoCartas(struct deck **head, struct deck **tail){
 }
 
 int contarCartas(struct deck *head){
-    if (head == NULL) return 0;
+    if(head == NULL){
+        return 0;
+    } 
     struct deck *temp = head;
-    int count = 0;
-    do {
-        count++;
+    int cont=0;
+    do{
+        cont++;
         temp = temp->prox;
-    } while (temp != head);
-    return count;
+    }while(temp!=head);
+    return cont;
 }
 
-void extrairCarta(struct deck **head, struct deck **tail, struct carta *destino) {
+void extrairCarta(struct deck **head, struct deck **tail, struct carta *destino){
     int totalCartas = contarCartas(*head);
-
-    if (totalCartas == 0){
+    if(totalCartas==0){
         return;
     } 
-
-    int cartaIndex = rand() % totalCartas;
+    int cartaIndex = rand()%totalCartas;
     struct deck *temp = *head;
 
-    for (int i = 0; i < cartaIndex; i++) {
+    for(int i=0;i<cartaIndex;i++){
         temp = temp->prox;
     }
-
     strcpy(destino->carta, temp->carta);
-
-    if (temp->prox == temp) {
+    if(temp->prox==temp){
         *head = *tail = NULL;
-    } else {
+    }else{
         temp->ant->prox = temp->prox;
         temp->prox->ant = temp->ant;
-        if (temp == *head){
+        if(temp==*head){
             *head = temp->prox;
         } 
-        if (temp == *tail){
+        if(temp==*tail){
             *tail = temp->ant;
         } 
     }
