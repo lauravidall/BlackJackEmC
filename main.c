@@ -8,6 +8,10 @@ struct deck{
     struct deck *ant;
 };
 
+struct carta{
+    char carta[4];
+};
+
 struct jogador{
     char nome[20];
     int pontuacao;
@@ -26,13 +30,15 @@ void freeLista(struct highscore **cabeca);
 //mudancas 
 void inserirNaListaCirc(struct deck **head, struct deck **tail, char carta[]);
 void printarListaCirc(struct deck *head, struct deck *tail);
-void removerNaListaCirc(struct deck **head, struct deck **tail);
+void resetarJogo(struct deck **head, struct deck **tail);
+void excluirCarta(struct deck **head, struct deck **tail, char carta[]);
 void adicionandoCartas(struct deck **head, struct deck **tail);
 
 int main(){
 
     struct deck *head = NULL;
     struct deck *tail = NULL;
+
     struct highscore *cabeca = NULL;
     FILE *fptr;
     struct jogador player;
@@ -46,13 +52,11 @@ int main(){
     printf("\nDigite o nome do jogador: ");
     scanf("%s", player.nome);
     player.pontuacao = 10;  
-    
     fptr = fopen("score.txt", "a");
     if(fptr!=NULL){
         fwrite(&player, sizeof(struct jogador), 1, fptr);
         fclose(fptr);
     }
-
     fptr = fopen("score.txt", "r");
     if(fptr!=NULL){
         while(fread(&player, sizeof(struct jogador),1,fptr)==1){
@@ -60,18 +64,19 @@ int main(){
         }
         fclose(fptr);
     }
-    
     fptr = fopen("score.txt", "w");
     if(fptr!=NULL){
         escreverLista(cabeca, fptr);
         fclose(fptr);
     }
-
     printarLista(cabeca);
     freeLista(&cabeca);
     
     adicionandoCartas(&head,&tail);
     printarListaCirc(head,tail);
+
+    struct carta arrayDealer[2];
+    struct carta arrayJogador[12];
     
 }
 
@@ -153,7 +158,20 @@ void printarListaCirc(struct deck *head, struct deck *tail) {
     } while (temp != head);
 }
 
-void removerNaListaCirc(struct deck **head, struct deck **tail){
+void resetarJogo(struct deck **head, struct deck **tail){ //alterar 
+    struct deck *temp = *head;
+    if(*head!=NULL){
+        if(*head==*tail){
+            *head = *tail = NULL;
+        }else{
+            (*head) = (*head)->prox;
+            (*tail)->prox = *head;
+        }
+        free(temp);
+    }
+}
+
+void excluirCarta(struct deck **head, struct deck **tail, char carta[]){ //alterar
     struct deck *temp = *head;
     if(*head!=NULL){
         if(*head==*tail){
