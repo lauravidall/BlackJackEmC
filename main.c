@@ -75,6 +75,11 @@ int main(){
     adicionandoCartas(&head,&tail);
     printarListaCirc(head,tail);
 
+    printf("\npos remover: "); //resetar jogo --> ok
+    resetarJogo(&head, &tail);
+    printarListaCirc(head,tail);
+    printf("removendo ok!\n");
+
     struct carta arrayDealer[2];
     struct carta arrayJogador[12];
     
@@ -158,18 +163,19 @@ void printarListaCirc(struct deck *head, struct deck *tail) {
     } while (temp != head);
 }
 
-void resetarJogo(struct deck **head, struct deck **tail){ //alterar 
+void resetarJogo(struct deck **head, struct deck **tail) {
     struct deck *temp = *head;
-    if(*head!=NULL){
-        if(*head==*tail){
-            *head = *tail = NULL;
-        }else{
-            (*head) = (*head)->prox;
-            (*tail)->prox = *head;
-        }
-        free(temp);
+    struct deck *proxNode;
+    if (*head != NULL) {
+        do {
+            proxNode = temp->prox; 
+            free(temp);            
+            temp = proxNode;       
+        } while (temp != *head);   
+        *head = *tail = NULL;
     }
 }
+
 
 void excluirCarta(struct deck **head, struct deck **tail, char carta[]){ //alterar
     struct deck *temp = *head;
