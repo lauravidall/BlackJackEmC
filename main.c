@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 struct deck{
     char carta[4]; 
@@ -37,6 +38,8 @@ int contarCartas(struct deck *head);
 void extrairCarta(struct deck **head, struct deck **tail, struct carta *destino);
 
 int main(){
+
+    srand(time(NULL));
 
     struct deck *head = NULL;
     struct deck *tail = NULL;
@@ -102,7 +105,9 @@ int main(){
     for(int i=0;i<2;i++){
         printf("%s e ",arrayJogador[i].carta);
     }
-
+    printf("\n");
+    int qtdCartas = contarCartas(head); //contando a quantidade certa de cartas no baralho
+    printf("%d",qtdCartas);
     
 }
 
