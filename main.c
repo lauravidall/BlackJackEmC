@@ -36,6 +36,7 @@ void excluirCarta(struct deck **head, struct deck **tail, char carta[]);
 void adicionandoCartas(struct deck **head, struct deck **tail);
 int contarCartas(struct deck *head);
 void extrairCarta(struct deck **head, struct deck **tail, struct carta *destino);
+int calcularPontuacao(struct carta array[], int numCartas);
 
 int main(){
 
@@ -106,8 +107,13 @@ int main(){
         printf("%s e ",arrayJogador[i].carta);
     }
     printf("\n");
-    int qtdCartas = contarCartas(head); //contando a quantidade certa de cartas no baralho
+    int qtdCartas = contarCartas(head); 
     printf("%d",qtdCartas);
+
+    int pontoDealer = calcularPontuacao(arrayDealer, 2);
+    int pontoJogador = calcularPontuacao(arrayJogador, 2);
+    printf("\nSomatório cartas Dealer: %d\n",pontoDealer);
+    printf("\nSomatório cartas Jogador: %d\n",pontoJogador);
     
 }
 
@@ -327,4 +333,33 @@ void extrairCarta(struct deck **head, struct deck **tail, struct carta *destino)
         } 
     }
     free(temp);
+}
+
+int calcularPontuacao(struct carta array[], int numCartas) {
+    int soma = 0;
+    int numAses = 0;
+    char valor;
+
+    for (int i = 0; i < numCartas; i++) {
+        valor = array[i].carta[0];  // Pega o primeiro caractere como valor da carta
+
+        if (valor == 'A') {
+            numAses += 1;
+            soma += 11;  // Primeiramente consideramos Ás como 11
+        } else if (valor == 'J' || valor == 'Q' || valor == 'K') {
+            soma += 10;
+        } else if (valor == '1' && array[i].carta[1] == '0') {
+            soma += 10; // Trata o caso de '10' que tem dois caracteres para o valor
+        } else {
+            soma += valor - '0'; // Converte char para inteiro e soma
+        }
+    }
+
+    // Ajusta o valor dos Áses de 11 para 1 se a soma total exceder 21
+    while (soma > 21 && numAses > 0) {
+        soma -= 10;
+        numAses -= 1;
+    }
+
+    return soma;
 }
