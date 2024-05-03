@@ -242,7 +242,7 @@ void escreverLista(struct highscore *cabeca, FILE *fptr){
 
 void printarLista(struct highscore *cabeca){
     int posicao = 1;
-    while(cabeca!=NULL){
+    while(cabeca!=NULL && posicao<=3){
         printf("%dº colocado:\n", posicao);
         printf("Nome: %s\n", cabeca->player.nome);
         printf("Pontuação: %d\n", cabeca->player.pontuacao);
@@ -258,8 +258,6 @@ void freeLista(struct highscore **cabeca){
         free(temp);
     }
 }
-
-//Mudanças 
 
 void inserirNaListaCirc(struct deck **head, struct deck **tail, char carta[]){
     struct deck *novo = (struct deck*)malloc(sizeof(struct deck));
