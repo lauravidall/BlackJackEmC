@@ -118,13 +118,13 @@ int main(){
                     extrairCarta(&head,&tail,&arrayJogador[contadorDeCartas]);
                     contadorDeCartas++;
                 }
+                printf("--------------------------------------\n");
+                printf("|  A carta que você recebeu foi: %s  |\n",arrayJogador[contadorDeCartas-1].carta);
+                printf("--------------------------------------\n");
                 for(int i=0;i<contadorDeCartas;i++){
                     printf("Carta de número %d do jogador: %s\n",i+1, arrayJogador[i].carta);
                 }
                 printf("\n");
-                printf("--------------------------------------\n");
-                printf("|  A carta que você recebeu foi: %s  |\n",arrayJogador[contadorDeCartas-1].carta);
-                printf("--------------------------------------\n");
                 int pontoJogador;
                 pontoJogador = calcularPontuacao(arrayJogador, contadorDeCartas);
                 if(pontoJogador>21){
