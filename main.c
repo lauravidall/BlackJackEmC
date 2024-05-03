@@ -40,6 +40,9 @@ int calcularPontuacao(struct carta array[], int numCartas);
 
 int main(){
 
+    float scoreDealer=0;
+    float scoreJogador=0;
+
     srand(time(NULL));
 
     struct deck *head = NULL;
@@ -49,11 +52,11 @@ int main(){
     FILE *fptr;
     struct jogador player;
 
-    printf("---------------------------\n");
-    printf("|                         |\n");
-    printf("| BEM-VINDO AO CASSINO ?? |\n");
-    printf("|                         |\n");
-    printf("---------------------------\n");
+    printf("----------------------------\n");
+    printf("|                          |\n");
+    printf("|   BEM-VINDO AO CASSINO   |\n");
+    printf("|                          |\n");
+    printf("----------------------------\n");
 
     printf("\nDigite o nome do jogador: ");
     scanf("%s", player.nome);
@@ -79,10 +82,10 @@ int main(){
     freeLista(&cabeca);
     
     adicionandoCartas(&head,&tail);
-    printarListaCirc(head,tail);
+    //printarListaCirc(head,tail);
 
-    int resp = contarCartas(head); //contando a quantidade certa de cartas no baralho
-    printf("%d",resp);
+    //int resp = contarCartas(head); //contando a quantidade certa de cartas no baralho
+    //printf("%d",resp);
 
     // printf("\npos remover: "); //resetar jogo --> ok
     // resetarJogo(&head, &tail);
@@ -112,9 +115,101 @@ int main(){
 
     int pontoDealer = calcularPontuacao(arrayDealer, 2);
     int pontoJogador = calcularPontuacao(arrayJogador, 2);
-    printf("\nSomatório cartas Dealer: %d\n",pontoDealer);
-    printf("\nSomatório cartas Jogador: %d\n",pontoJogador);
-    
+
+    int contadorDeCartas=2;
+
+    int contadorRodadas = 0;
+    while(pontoDealer<21 && pontoJogador<21 && contadorRodadas<=4){
+        printf("\nSomatório cartas Dealer: %d\n",pontoDealer);
+        printf("\nSomatório cartas Jogador: %d\n",pontoJogador);
+        if(pontoJogador>21){
+            printf("Pontos estourados! Tente na próxima!");
+        }else if(pontoJogador<21){
+            int escolha;
+            printf("\n%s, você deseja:\n[1] - pegar mais uma carta\n[2] - manter a mão atual\n[3] - desistir (você irá perder 0,5 ponto)\n[4] - verificar novamente a carta do Dealer\n[5] - consultar saldo de pontos\n",player.nome);
+            printf("Digite a sua escolha: ");
+            scanf("%d",&escolha);
+            if(escolha==1){
+                for(int i=0;i<1;i++){ 
+                    extrairCarta(&head,&tail,&arrayJogador[contadorDeCartas]);
+                    contadorDeCartas++;
+                }
+                printf("A carta que você recebeu foi: %s\n",arrayJogador[contadorDeCartas-1].carta);
+                int pontoJogador = calcularPontuacao(arrayJogador, contadorDeCartas);
+                if(pontoJogador>21){
+                    printf("Você perdeu!");
+                    scoreJogador--;
+                    resetarJogo(&head, &tail); //
+                    adicionandoCartas(&head,&tail); //
+                    //chamar função de dar free e logo depois adicionar
+                    if(pontoDealer==21 && pontoJogador==21){
+                        printf("Houve um empate na rodada 1");
+                    }else if(pontoDealer==21){
+                        printf("Dealer venceu!");
+                        scoreDealer++;
+                    }else if(pontoJogador==21){
+                        printf("%s venceu!",player.nome);
+                        scoreJogador++;
+                    }else if(pontoJogador>21){
+                        printf("Pontos estourados! Tente na próxima!");
+                    }else if(pontoDealer>21){
+                        printf("Pontos do dealer estourados! Parabéns!");
+                    }
+                    contadorRodadas++;
+                }else if(pontoJogador==21){
+                    printf("Parabéns, você venceu!\n");
+                    scoreJogador++;
+                    resetarJogo(&head, &tail); //
+                    adicionandoCartas(&head,&tail); //
+                    //chamar função de dar free e logo depois adicionar
+                    if(pontoDealer==21 && pontoJogador==21){
+                        printf("Houve um empate na rodada 1");
+                    }else if(pontoDealer==21){
+                        printf("Dealer venceu!");
+                        scoreDealer++;
+                    }else if(pontoJogador==21){
+                        printf("%s venceu!",player.nome);
+                        scoreJogador++;
+                    }else if(pontoJogador>21){
+                        printf("Pontos estourados! Tente na próxima!");
+                    }else if(pontoDealer>21){
+                        printf("Pontos do dealer estourados! Parabéns!");
+                    }
+                    contadorRodadas++;
+                }
+            }else if(escolha==2){
+                printf("Sua mão é: %s e %s",arrayJogador[0].carta, arrayJogador[1].carta);
+            }else if(escolha==3){
+                printf("Seu score era %.2f e passou a ser %.2f",scoreJogador,scoreJogador-0.5);
+                scoreJogador = scoreJogador - 0.5;
+                resetarJogo(&head, &tail); //
+                adicionandoCartas(&head,&tail); //
+                //chamar função de dar free e logo depois adicionar
+                if(pontoDealer==21 && pontoJogador==21){
+                    printf("Houve um empate na rodada 1");
+                }else if(pontoDealer==21){
+                    printf("Dealer venceu!");
+                    scoreDealer++;
+                }else if(pontoJogador==21){
+                    printf("%s venceu!",player.nome);
+                    scoreJogador++;
+                }else if(pontoJogador>21){
+                    printf("Pontos estourados! Tente na próxima!");
+                }else if(pontoDealer>21){
+                    printf("Pontos do dealer estourados! Parabéns!");
+                }
+                contadorRodadas++;
+            }else if(escolha==4){
+                printf("\nCarta do Dealer: %s",arrayDealer[0].carta);
+            }else if(escolha==5){
+                int pontoJogador = calcularPontuacao(arrayJogador, contadorDeCartas);
+                printf("\nSomatório cartas Jogador: %d\n",pontoJogador);
+            }else{
+                printf("Resposta inválida! Escolha [1], [2], [3], [4] ou [5]!");
+                continue;
+            }
+        }
+    }
 }
 
 void ordenarLista(struct highscore **cabeca, struct jogador player){
@@ -337,28 +432,19 @@ void extrairCarta(struct deck **head, struct deck **tail, struct carta *destino)
 
 int calcularPontuacao(struct carta array[], int numCartas) {
     int soma = 0;
-    int numAses = 0;
     char valor;
 
-    for (int i = 0; i < numCartas; i++) {
-        valor = array[i].carta[0];  // Pega o primeiro caractere como valor da carta
-
-        if (valor == 'A') {
-            numAses += 1;
-            soma += 11;  // Primeiramente consideramos Ás como 11
-        } else if (valor == 'J' || valor == 'Q' || valor == 'K') {
+    for(int i=0;i<numCartas;i++){
+        valor = array[i].carta[0];
+        if(valor=='A'){
+            soma+=11; 
+        }else if(valor=='J'||valor=='Q'||valor=='K'){
             soma += 10;
-        } else if (valor == '1' && array[i].carta[1] == '0') {
-            soma += 10; // Trata o caso de '10' que tem dois caracteres para o valor
-        } else {
-            soma += valor - '0'; // Converte char para inteiro e soma
+        }else if(valor=='1'&&array[i].carta[1]=='0'){
+            soma+=10; 
+        }else{
+            soma+=valor-'0'; 
         }
-    }
-
-    // Ajusta o valor dos Áses de 11 para 1 se a soma total exceder 21
-    while (soma > 21 && numAses > 0) {
-        soma -= 10;
-        numAses -= 1;
     }
 
     return soma;
