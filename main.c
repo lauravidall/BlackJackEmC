@@ -60,26 +60,6 @@ int main(){
 
     printf("\nDigite o nome do jogador: ");
     scanf("%s", player.nome);
-    player.pontuacao = 10;  
-    fptr = fopen("score.txt", "a");
-    if(fptr!=NULL){
-        fwrite(&player, sizeof(struct jogador), 1, fptr);
-        fclose(fptr);
-    }
-    fptr = fopen("score.txt", "r");
-    if(fptr!=NULL){
-        while(fread(&player, sizeof(struct jogador),1,fptr)==1){
-            ordenarLista(&cabeca, player);
-        }
-        fclose(fptr);
-    }
-    fptr = fopen("score.txt", "w");
-    if(fptr!=NULL){
-        escreverLista(cabeca, fptr);
-        fclose(fptr);
-    }
-    printarLista(cabeca);
-    freeLista(&cabeca);
     
     adicionandoCartas(&head,&tail);
     //printarListaCirc(head,tail);
@@ -210,6 +190,29 @@ int main(){
             }
         }
     }
+
+    printf("\n");
+    player.pontuacao = scoreJogador;  
+    fptr = fopen("score.txt", "a");
+    if(fptr!=NULL){
+        fwrite(&player, sizeof(struct jogador), 1, fptr);
+        fclose(fptr);
+    }
+    fptr = fopen("score.txt", "r");
+    if(fptr!=NULL){
+        while(fread(&player, sizeof(struct jogador),1,fptr)==1){
+            ordenarLista(&cabeca, player);
+        }
+        fclose(fptr);
+    }
+    fptr = fopen("score.txt", "w");
+    if(fptr!=NULL){
+        escreverLista(cabeca, fptr);
+        fclose(fptr);
+    }
+    printarLista(cabeca);
+    freeLista(&cabeca);
+
 }
 
 void ordenarLista(struct highscore **cabeca, struct jogador player){
