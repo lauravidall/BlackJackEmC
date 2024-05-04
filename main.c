@@ -167,7 +167,7 @@ int main(){
                             printf("%s e ",arrayDealer[i].carta);
                         }
                         printf("\n");
-                        for(int i=0;i<2;i++){
+                        for(int i=0;i<contadorDeCartas;i++){
                             printf("Carta de número %d do jogador: %s\n",i+1, arrayJogador[i].carta);
                         }
                         printf("\n");
@@ -190,7 +190,7 @@ int main(){
                             printf("%s e ",arrayDealer[i].carta);
                         }
                         printf("\n");
-                        for(int i=0;i<2;i++){
+                        for(int i=0;i<contadorDeCartas;i++){
                             printf("Carta de número %d do jogador: %s\n",i+1, arrayJogador[i].carta);
                         }
                         printf("\n");
@@ -214,7 +214,7 @@ int main(){
                             printf("%s e ",arrayDealer[i].carta);
                         }
                         printf("\n");
-                        for(int i=0;i<2;i++){
+                        for(int i=0;i<contadorDeCartas;i++){
                             printf("Carta de número %d do jogador: %s\n",i+1, arrayJogador[i].carta);
                         }
                         printf("\n");
@@ -238,7 +238,7 @@ int main(){
                             printf("%s e ",arrayDealer[i].carta);
                         }
                         printf("\n");
-                        for(int i=0;i<2;i++){
+                        for(int i=0;i<contadorDeCartas;i++){
                             printf("Carta de número %d do jogador: %s\n",i+1, arrayJogador[i].carta);
                         }
                         printf("\n");
@@ -261,7 +261,7 @@ int main(){
                             printf("%s e ",arrayDealer[i].carta);
                         }
                         printf("\n");
-                        for(int i=0;i<2;i++){
+                        for(int i=0;i<contadorDeCartas;i++){
                             printf("Carta de número %d do jogador: %s\n",i+1, arrayJogador[i].carta);
                         }
                         printf("\n");
@@ -286,7 +286,7 @@ int main(){
                     printf("\n");
                     printf("Carta do dealer: %s",arrayDealer[0].carta);
                     printf("\n");
-                    for(int i=0;i<2;i++){
+                    for(int i=0;i<contadorDeCartas;i++){
                         printf("Carta de número %d do jogador\n: %s",i+1, arrayJogador[i].carta);
                     }
                     printf("\n");
@@ -308,7 +308,8 @@ int main(){
                             printf("%s e ",arrayDealer[i].carta);
                         }
                         printf("\n");
-                        for(int i=0;i<2;i++){
+                        // aqui vai a ordenação do array jogador
+                        for(int i=0;i<contadorDeCartas;i++){
                             printf("Carta de número %d do jogador: %s\n",i+1, arrayJogador[i].carta);
                         }
                         printf("\n");
@@ -331,7 +332,7 @@ int main(){
                             printf("%s e ",arrayDealer[i].carta);
                         }
                         printf("\n");
-                        for(int i=0;i<2;i++){
+                        for(int i=0;i<contadorDeCartas;i++){
                             printf("Carta de número %d do jogador: %s\n",i+1, arrayJogador[i].carta);
                         }
                         printf("\n");
@@ -355,7 +356,7 @@ int main(){
                             printf("%s e ",arrayDealer[i].carta);
                         }
                         printf("\n");
-                        for(int i=0;i<2;i++){
+                        for(int i=0;i<contadorDeCartas;i++){
                             printf("Carta de número %d do jogador: %s\n",i+1, arrayJogador[i].carta);
                         }
                         printf("\n");
@@ -379,7 +380,7 @@ int main(){
                             printf("%s e ",arrayDealer[i].carta);
                         }
                         printf("\n");
-                        for(int i=0;i<2;i++){
+                        for(int i=0;i<contadorDeCartas;i++){
                             printf("Carta de número %d do jogador: %s\n",i+1, arrayJogador[i].carta);
                         }
                         printf("\n");
@@ -402,7 +403,7 @@ int main(){
                             printf("%s e ",arrayDealer[i].carta);
                         }
                         printf("\n");
-                        for(int i=0;i<2;i++){
+                        for(int i=0;i<contadorDeCartas;i++){
                             printf("Carta de número %d do jogador: %s\n",i+1, arrayJogador[i].carta);
                         }
                         printf("\n");
@@ -412,7 +413,11 @@ int main(){
                 }
             }else if(escolha==2){
                 printf("--------------------------------------------------------------\n");
-                printf("|                     Sua mão é: %s e %s                     |\n",arrayJogador[0].carta, arrayJogador[1].carta);
+                printf("                     Sua mão é: ");
+                for(int i=0;i<contadorDeCartas;i++){
+                            if(i==contadorDeCartas - 1) printf("%s\n",arrayJogador[i].carta);
+                            else printf("%s e ",arrayJogador[i].carta);
+                    }
                 printf("--------------------------------------------------------------\n");
             }else if(escolha==3){
                 printf("Seu score era %.2f e passou a ser %.2f",scoreJogador,scoreJogador-0.5);
@@ -807,7 +812,7 @@ int calcularPontuacao(struct carta array[], int numCartas) {
         if(valor=='A'){
             soma+=11; 
         }else if(valor=='J'||valor=='Q'||valor=='K'){
-            soma += 10;
+            soma+=10;
         }else if(valor=='1'&&array[i].carta[1]=='0'){
             soma+=10; 
         }else{
