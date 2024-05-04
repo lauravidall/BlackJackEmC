@@ -28,7 +28,6 @@ void escreverLista(struct highscore *cabeca, FILE *fptr);
 void printarLista(struct highscore *cabeca);
 void freeLista(struct highscore **cabeca);
 
-//mudancas 
 void inserirNaListaCirc(struct deck **head, struct deck **tail, char carta[]);
 void printarListaCirc(struct deck *head, struct deck *tail);
 void resetarJogo(struct deck **head, struct deck **tail);
@@ -37,6 +36,9 @@ void adicionandoCartas(struct deck **head, struct deck **tail);
 int contarCartas(struct deck *head);
 void extrairCarta(struct deck **head, struct deck **tail, struct carta *destino);
 int calcularPontuacao(struct carta array[], int numCartas);
+//criando a função de ordenar
+void ordenarCartasDaMao(struct carta array[], int contadorDeCartas);
+int valorCarta(char *c);
 
 int main(){
 
@@ -75,6 +77,9 @@ int main(){
     printf("\n");
     printf("Carta do dealer: %s",arrayDealer[0].carta);
     printf("\n");
+    int contadorDeCartas=2;
+    int contadorRodadas = 0;
+    ordenarCartasDaMao(arrayJogador, contadorDeCartas); 
     for(int i=0;i<2;i++){
         printf("Carta de número %d do jogador: %s\n",i+1, arrayJogador[i].carta);
     }
@@ -82,9 +87,6 @@ int main(){
 
     int pontoDealer = calcularPontuacao(arrayDealer, 2);
     int pontoJogador = calcularPontuacao(arrayJogador, 2);
-
-    int contadorDeCartas=2;
-    int contadorRodadas = 0;
 
     while(pontoDealer<21 && pontoJogador<21 && contadorRodadas<=4){
         if(pontoJogador>21){
@@ -819,6 +821,35 @@ int calcularPontuacao(struct carta array[], int numCartas) {
             soma+=valor-'0'; 
         }
     }
-
     return soma;
+}
+
+int valorCarta(char *c) {
+    if (c[0] == '1' && c[1] == '0') {
+        return 10;
+    }else if (c[0] >= '1' && c[0] <= '9') {
+        return c[0] - '0';  
+    } else if (c[0] == 'J') {
+        return 11;
+    } else if (c[0] == 'Q') {
+        return 12;
+    } else if (c[0] == 'K') {
+        return 13;
+    } else if (c[0] == 'A') {
+        return 14;
+    }
+    return -1; 
+}
+
+void ordenarCartasDaMao(struct carta array[], int contadorDeCartas) {
+    int LEN = contadorDeCartas;
+    for (int i = 1; i < LEN; i++) {
+        int j = i;
+        while (j > 0 && valorCarta(array[j].carta) < valorCarta(array[j - 1].carta)) {
+            struct carta aux = array[j - 1];
+            array[j - 1] = array[j];
+            array[j] = aux;
+            --j;
+        }
+    }
 }
