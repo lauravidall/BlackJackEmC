@@ -442,11 +442,10 @@ int main(){
                     }
                 printf("--------------------------------------------------------------\n");
                 printf("Deseja contar as cartas agora?\nSua mão será comparada com a do dealer e a mais próxima de 21 vencerá [S/N]\n");
-                printf("Digite sua decisão:");
+                printf("Digite a sua decisão: ");
                 char decisao;
-                scanf("%c", &decisao);
+                scanf(" %c", &decisao);
                 if(decisao == 'S' || decisao == 's'){
-                    printf("ENTROU AQUI");
                     char vencedor = (pontoJogador > pontoDealer) ? 'J' : 'D';
                     if(vencedor == 'J'){
                         printf("--------------------------------------\n");
