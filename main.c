@@ -334,7 +334,7 @@ int main(){
                         printf("--------------------------------------\n");
                         printf("|            Dealer venceu!           |\n");
                         printf("--------------------------------------\n");
-                        printf("Mão do dealer:\n");
+                        printf("Mão vitoriosa do dealer:\n");
                         for(int i=0;i<2;i++){ 
                             printf("%s e ",arrayDealer[i].carta);
                         }
@@ -467,7 +467,7 @@ int main(){
                         printf("--------------------------------------\n");
                         printf("|            Dealer venceu!         AQUI 11  |\n");
                         printf("--------------------------------------\n");
-                        printf("Mão do dealer:\n");
+                        printf("Mão vitoriosa do dealer:\n");
                         for(int i=0;i<2;i++){ 
                             if (i==1) printf("%s",arrayDealer[i].carta);
                             else printf("%s e ",arrayDealer[i].carta);
