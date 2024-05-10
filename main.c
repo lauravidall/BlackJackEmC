@@ -446,6 +446,7 @@ int main(){
                 char decisao;
                 scanf(" %c", &decisao);
                 if(decisao == 'S' || decisao == 's'){
+                    contadorRodadas++;
                     char vencedor = (pontoJogador > pontoDealer) ? 'J' : 'D';
                     if(vencedor == 'J'){
                         printf("--------------------------------------\n");
