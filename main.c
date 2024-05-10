@@ -446,7 +446,6 @@ int main(){
                 char decisao;
                 scanf(" %c", &decisao);
                 if(decisao == 'S' || decisao == 's'){
-                    contadorRodadas++;
                     char vencedor = (pontoJogador > pontoDealer) ? 'J' : 'D';
                     if(vencedor == 'J'){
                         printf("--------------------------------------\n");
@@ -483,7 +482,8 @@ int main(){
                         for(int i=0;i<2;i++){ 
                             extrairCarta(&head,&tail,&arrayJogador[i]);
                         }
-                    } 
+                    }
+                    contadorRodadas++;
                 }
             }else if(escolha==3){
                 printf("Seu score era %.2f e passou a ser %.2f",scoreJogador,scoreJogador-0.5);
