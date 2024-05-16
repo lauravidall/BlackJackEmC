@@ -146,8 +146,9 @@ int main(){
             printf("|            Dealer venceu!           |\n");
             printf("--------------------------------------\n");
             printf("Mão vitoriosa do dealer:\n");
-            for(int i=0;i<2;i++){ 
-                printf("%s e ",arrayDealer[i].carta);
+            for(int i=0;i<2;i++){
+                if(i==1) printf("%s",arrayDealer[i].carta);
+                else printf("%s e ",arrayDealer[i].carta);
             }
             scoreJogador--;
             if (scoreJogador < 0) scoreJogador = 0;
