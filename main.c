@@ -14,8 +14,8 @@ struct carta{
 };
 
 struct jogador{
-    char nome[20];
-    int pontuacao;
+    char nome[50];
+    float pontuacao;
 };
 
 struct highscore{
@@ -42,7 +42,6 @@ int valorCarta(char *c);
 
 int main(){
 
-    float scoreDealer=0;
     float scoreJogador=0;
 
     srand(time(NULL));
@@ -80,7 +79,7 @@ int main(){
 
     int contadorDeCartas=2;
     int contadorRodadas = 0;
-    ordenarCartasDaMao(arrayJogador, contadorDeCartas); 
+    ordenarCartasDaMao(arrayJogador, contadorDeCartas);
 
     for(int i=0;i<2;i++){
         printf("Carta de número %d do jogador: %s\n",i+1, arrayJogador[i].carta);
@@ -90,9 +89,15 @@ int main(){
     int pontoDealer = calcularPontuacao(arrayDealer, 2);
     int pontoJogador = calcularPontuacao(arrayJogador, 2);
 
-    while(pontoDealer<21 && pontoJogador<21 && contadorRodadas<=4){
-        if(pontoJogador>21){
-            printf("Pontos estourados! Tente na próxima! AQUI 1");
+    while(contadorRodadas<4){
+        printf("\nRodada %i/4\n", contadorRodadas+1);
+        printf("Sua pontuação: %.1f\n", scoreJogador);
+        if(pontoJogador==21){
+           printf("--------------------------------------\n");
+            printf("|        Parabéns, você venceu!     |\n");
+            printf("-------------------------------------\n");
+            scoreJogador++;
+            contadorRodadas++;
             resetarJogo(&head, &tail); 
             adicionandoCartas(&head,&tail); 
             
@@ -102,26 +107,80 @@ int main(){
             for(int i=0;i<2;i++){ 
                 extrairCarta(&head,&tail,&arrayJogador[i]);
             }
+            contadorDeCartas=2;
+            pontoDealer=calcularPontuacao(arrayDealer, 2);
+            pontoJogador=calcularPontuacao(arrayJogador, contadorDeCartas);
             printf("\n");
             printf("Carta do dealer: %s",arrayDealer[0].carta);
             printf("\n");
-            for(int i=0;i<2;i++){
-                printf("%s e ",arrayJogador[i].carta);
+            ordenarCartasDaMao(arrayJogador, contadorDeCartas);
+            for(int i=0;i<contadorDeCartas;i++){
+                printf("Carta de número %d do jogador: %s\n",i+1, arrayJogador[i].carta);
             }
             printf("\n");
+        }else if(pontoJogador>21){
+            printf("Pontos estourados! Tente na próxima!");
+            scoreJogador--;
+            contadorRodadas++;
+            resetarJogo(&head, &tail); 
+            adicionandoCartas(&head,&tail); 
+            
+            for(int i=0;i<2;i++){ 
+                extrairCarta(&head,&tail,&arrayDealer[i]);
+            }
+            for(int i=0;i<2;i++){ 
+                extrairCarta(&head,&tail,&arrayJogador[i]);
+            }
             contadorDeCartas=2;
+            pontoDealer = calcularPontuacao(arrayDealer, 2);
+            pontoJogador = calcularPontuacao(arrayJogador, contadorDeCartas);
+            printf("\n");
+            printf("Carta do dealer: %s",arrayDealer[0].carta);
+            printf("\n");
+            for(int i=0;i<contadorDeCartas;i++){
+                printf("Carta de número %d do jogador: %s\n",i+1, arrayJogador[i].carta);
+            }
+            printf("\n");
+        }else if(pontoDealer==21){
+            printf("--------------------------------------\n");
+            printf("|            Dealer venceu!           |\n");
+            printf("--------------------------------------\n");
+            printf("Mão vitoriosa do dealer:\n");
+            for(int i=0;i<2;i++){ 
+                printf("%s e ",arrayDealer[i].carta);
+            }
+            scoreJogador--;
+            if (scoreJogador < 0) scoreJogador = 0;
+            contadorRodadas++;
+
+            resetarJogo(&head, &tail); 
+            adicionandoCartas(&head,&tail); 
+            
+            for(int i=0;i<2;i++){ 
+                extrairCarta(&head,&tail,&arrayDealer[i]);
+            }
+            for(int i=0;i<2;i++){ 
+                extrairCarta(&head,&tail,&arrayJogador[i]);
+            }
+            contadorDeCartas = 2;
+            pontoDealer = calcularPontuacao(arrayDealer, 2);
+            pontoJogador = calcularPontuacao(arrayJogador, contadorDeCartas);
+            printf("\n");
+            ordenarCartasDaMao(arrayJogador, contadorDeCartas);
+            for(int i=0;i<contadorDeCartas;i++){
+                printf("Carta de número %d do jogador: %s\n",i+1, arrayJogador[i].carta);
+            }
+            printf("\n");
         }else if(pontoJogador<21){
             int escolha;
             printf("\n--------------------------------------------------");
-            printf("\n%s, você deseja:\n[1] - pegar mais uma carta\n[2] - manter a mão atual\n[3] - desistir (você irá perder 0,5 ponto)\n[4] - verificar novamente a carta do Dealer\n[5] - consultar saldo de pontos\n",player.nome);
+            printf("\n%s, Você deseja:\n[1] - Pegar mais uma carta\n[2] - Manter a mão atual\n[3] - Desistir (você irá perder 0,5 ponto)\n[4] - Verificar novamente a carta do Dealer\n",player.nome);
             printf("Digite a sua escolha: ");
             scanf("%d",&escolha);
             printf("--------------------------------------------------\n");
             if(escolha==1){
-                for(int i=0;i<1;i++){ 
-                    extrairCarta(&head,&tail,&arrayJogador[contadorDeCartas]);
-                    contadorDeCartas++;
-                }
+                extrairCarta(&head,&tail,&arrayJogador[contadorDeCartas]);
+                contadorDeCartas++;
                 printf("--------------------------------------\n");
                 printf("|  A carta que você recebeu foi: %s  |\n",arrayJogador[contadorDeCartas-1].carta);
                 printf("--------------------------------------\n");
@@ -132,13 +191,14 @@ int main(){
                 printf("\n");
                 pontoJogador = calcularPontuacao(arrayJogador, contadorDeCartas);
                 if(pontoJogador>21){
-                    printf("--------------------------------------\n");
-                    printf("|           Você perdeu!              |\n");
-                    printf("--------------------------------------\n");
+                    printf("----------------------------------------\n");
+                    printf("| Pontos estourados! Tente na próxima! |\n");
+                    printf("----------------------------------------\n");
                     scoreJogador--;
+                    if (scoreJogador < 0) scoreJogador = 0;
+                    contadorRodadas++;
                     resetarJogo(&head, &tail); 
                     adicionandoCartas(&head,&tail);
-                    
                     for(int i=0;i<2;i++){ 
                         extrairCarta(&head,&tail,&arrayDealer[i]);
                     }
@@ -146,8 +206,8 @@ int main(){
                         extrairCarta(&head,&tail,&arrayJogador[i]);
                     }
                     contadorDeCartas=2;
-                    pontoJogador = calcularPontuacao(arrayJogador, contadorDeCartas);
                     pontoDealer = calcularPontuacao(arrayDealer, 2);
+                    pontoJogador = calcularPontuacao(arrayJogador, contadorDeCartas);
                     printf("\n");
                     printf("Carta do dealer: %s",arrayDealer[0].carta);
                     printf("\n");
@@ -156,138 +216,13 @@ int main(){
                         printf("Carta de número %d do jogador: %s\n",i+1, arrayJogador[i].carta);
                     }
                     printf("\n");
-                    if(pontoDealer==21 && pontoJogador==21){
-                        printf("--------------------------------------\n");
-                        printf("|      Houve um empate na rodada 1    |\n");
-                        printf("--------------------------------------\n");
-                        resetarJogo(&head, &tail); 
-                        adicionandoCartas(&head,&tail); 
-                        
-                        for(int i=0;i<2;i++){ 
-                            extrairCarta(&head,&tail,&arrayDealer[i]);
-                        }
-                        for(int i=0;i<2;i++){ 
-                            extrairCarta(&head,&tail,&arrayJogador[i]);
-                        }
-                        printf("\n");
-                        for(int i=0;i<2;i++){ 
-                            printf("%s e ",arrayDealer[i].carta);
-                        }
-                        printf("\n");
-                        ordenarCartasDaMao(arrayJogador, contadorDeCartas); 
-                        for(int i=0;i<contadorDeCartas;i++){
-                            printf("Carta de número %d do jogador: %s\n",i+1, arrayJogador[i].carta);
-                        }
-                        printf("\n");
-                        contadorDeCartas=2;
-                    }else if(pontoDealer==21){
-                        printf("--------------------------------------\n");
-                        printf("|            Dealer venceu!           |\n");
-                        printf("--------------------------------------\n");
-                        resetarJogo(&head, &tail); 
-                        adicionandoCartas(&head,&tail); 
-                        
-                        for(int i=0;i<2;i++){ 
-                            extrairCarta(&head,&tail,&arrayDealer[i]);
-                        }
-                        for(int i=0;i<2;i++){ 
-                            extrairCarta(&head,&tail,&arrayJogador[i]);
-                        }
-                        printf("\n");
-                        for(int i=0;i<2;i++){ 
-                            printf("%s e ",arrayDealer[i].carta);
-                        }
-                        printf("\n");
-                        ordenarCartasDaMao(arrayJogador, contadorDeCartas); 
-                        for(int i=0;i<contadorDeCartas;i++){
-                            printf("Carta de número %d do jogador: %s\n",i+1, arrayJogador[i].carta);
-                        }
-                        printf("\n");
-                        scoreDealer++;
-                        contadorDeCartas=2;
-                    }else if(pontoJogador==21){
-                        printf("--------------------------------------\n");
-                        printf("|              %s venceu!           AQUI 10  |\n",player.nome);
-                        printf("--------------------------------------\n");
-                        resetarJogo(&head, &tail); 
-                        adicionandoCartas(&head,&tail); 
-                        
-                        for(int i=0;i<2;i++){ 
-                            extrairCarta(&head,&tail,&arrayDealer[i]);
-                        }
-                        for(int i=0;i<2;i++){ 
-                            extrairCarta(&head,&tail,&arrayJogador[i]);
-                        }
-                        printf("\n");
-                        for(int i=0;i<2;i++){ 
-                            printf("%s e ",arrayDealer[i].carta);
-                        }
-                        printf("\n");
-                        ordenarCartasDaMao(arrayJogador, contadorDeCartas); 
-                        for(int i=0;i<contadorDeCartas;i++){
-                            printf("Carta de número %d do jogador: %s\n",i+1, arrayJogador[i].carta);
-                        }
-                        printf("\n");
-                        contadorDeCartas=2;
-                        scoreJogador++;
-                    }else if(pontoJogador>21){
-                        printf("---------------------------------------\n");
-                        printf("| Pontos estourados! Tente na próxima! AQUI 2|\n");
-                        printf("---------------------------------------\n");
-                        resetarJogo(&head, &tail); 
-                        adicionandoCartas(&head,&tail); 
-                        
-                        for(int i=0;i<2;i++){ 
-                            extrairCarta(&head,&tail,&arrayDealer[i]);
-                        }
-                        for(int i=0;i<2;i++){ 
-                            extrairCarta(&head,&tail,&arrayJogador[i]);
-                        }
-                        printf("\n");
-                        for(int i=0;i<2;i++){ 
-                            printf("%s e ",arrayDealer[i].carta);
-                        }
-                        printf("\n");
-                        ordenarCartasDaMao(arrayJogador, contadorDeCartas); 
-                        for(int i=0;i<contadorDeCartas;i++){
-                            printf("Carta de número %d do jogador: %s\n",i+1, arrayJogador[i].carta);
-                        }
-                        printf("\n");
-                        contadorDeCartas=2;
-                    }else if(pontoDealer>21){
-                        printf("---------------------------------------\n");
-                        printf("|Pontos do dealer estourados! Parabéns!|\n");
-                        printf("---------------------------------------\n");
-                        resetarJogo(&head, &tail); 
-                        adicionandoCartas(&head,&tail); 
-                        
-                        for(int i=0;i<2;i++){ 
-                            extrairCarta(&head,&tail,&arrayDealer[i]);
-                        }
-                        for(int i=0;i<2;i++){ 
-                            extrairCarta(&head,&tail,&arrayJogador[i]);
-                        }
-                        printf("\n");
-                        for(int i=0;i<2;i++){ 
-                            printf("%s e ",arrayDealer[i].carta);
-                        }
-                        printf("\n");
-                        ordenarCartasDaMao(arrayJogador, contadorDeCartas); 
-                        for(int i=0;i<contadorDeCartas;i++){
-                            printf("Carta de número %d do jogador: %s\n",i+1, arrayJogador[i].carta);
-                        }
-                        printf("\n");
-                        contadorDeCartas=2;
-                    }
-                    contadorRodadas++;
                 }else if(pontoJogador==21){
                     printf("--------------------------------------\n");
-                    printf("|         Parabéns, você venceu!    AQUI 7  |\n");
+                    printf("|         Parabéns, você venceu!     |\n");
                     printf("--------------------------------------\n");
                     scoreJogador++;
                     resetarJogo(&head, &tail); 
                     adicionandoCartas(&head,&tail); 
-                    contadorDeCartas=2;
                     
                     for(int i=0;i<2;i++){ 
                         extrairCarta(&head,&tail,&arrayDealer[i]);
@@ -295,8 +230,9 @@ int main(){
                     for(int i=0;i<2;i++){ 
                         extrairCarta(&head,&tail,&arrayJogador[i]);
                     }
-                    pontoJogador=calcularPontuacao(arrayDealer, 2);
-                    pontoDealer=calcularPontuacao(arrayJogador, contadorDeCartas);
+                    contadorDeCartas=2;
+                    pontoDealer=calcularPontuacao(arrayDealer, 2);
+                    pontoJogador=calcularPontuacao(arrayJogador, contadorDeCartas);
                     printf("\n");
                     printf("Carta do dealer: %s",arrayDealer[0].carta);
                     printf("\n");
@@ -330,35 +266,9 @@ int main(){
                         }
                         printf("\n");
                         contadorDeCartas=2;
-                    }else if(pontoDealer==21){
-                        printf("--------------------------------------\n");
-                        printf("|            Dealer venceu!           |\n");
-                        printf("--------------------------------------\n");
-                        printf("Mão vitoriosa do dealer:\n");
-                        for(int i=0;i<2;i++){ 
-                            printf("%s e ",arrayDealer[i].carta);
-                        }
-                        scoreDealer++;
-                        resetarJogo(&head, &tail); 
-                        adicionandoCartas(&head,&tail); 
-                        
-                        for(int i=0;i<2;i++){ 
-                            extrairCarta(&head,&tail,&arrayDealer[i]);
-                        }
-                        for(int i=0;i<2;i++){ 
-                            extrairCarta(&head,&tail,&arrayJogador[i]);
-                        }
-                        printf("\n");
-                        printf("\n");
-                        ordenarCartasDaMao(arrayJogador, contadorDeCartas); 
-                        for(int i=0;i<contadorDeCartas;i++){
-                            printf("Carta de número %d do jogador: %s\n",i+1, arrayJogador[i].carta);
-                        }
-                        printf("\n");
-                        contadorDeCartas=2;
                     }else if(pontoJogador==21){
                         printf("--------------------------------------\n");
-                        printf("|              %s venceu!         AQUI 9   |\n",player.nome);
+                        printf("|              %s venceu!            |\n",player.nome);
                         printf("--------------------------------------\n");
                         scoreJogador++;
                         resetarJogo(&head, &tail);
@@ -382,9 +292,11 @@ int main(){
                         printf("\n");
                         contadorDeCartas=2;
                     }else if(pontoJogador>21){
-                        printf("---------------------------------------\n");
-                        printf("| Pontos estourados! Tente na próxima! AQUI 3|\n");
-                        printf("---------------------------------------\n");
+                        printf("----------------------------------------\n");
+                        printf("| Pontos estourados! Tente na próxima! |\n");
+                        printf("----------------------------------------\n");
+                        scoreJogador--;
+                        if (scoreJogador < 0) scoreJogador = 0;
                         resetarJogo(&head, &tail); 
                         adicionandoCartas(&head,&tail); 
                         
@@ -409,6 +321,7 @@ int main(){
                         printf("---------------------------------------\n");
                         printf("|Pontos do dealer estourados! Parabéns!|\n");
                         printf("---------------------------------------\n");
+                        scoreJogador++;
                         resetarJogo(&head, &tail); 
                         adicionandoCartas(&head,&tail); 
                         
@@ -441,6 +354,7 @@ int main(){
                         else printf("%s e ",arrayJogador[i].carta);
                     }
                 printf("--------------------------------------------------------------\n");
+                printf("Sua mão está com a pontuação: %i\n", pontoJogador);
                 printf("Deseja contar as cartas agora?\nSua mão será comparada com a do dealer e a mais próxima de 21 vencerá [S/N]\n");
                 printf("Digite a sua decisão: ");
                 char decisao;
@@ -449,7 +363,7 @@ int main(){
                     char vencedor = (pontoJogador > pontoDealer) ? 'J' : 'D';
                     if(vencedor == 'J'){
                         printf("--------------------------------------\n");
-                        printf("|              %s venceu!         AQUI 10  |\n",player.nome);
+                        printf("|              %s venceu!            |\n",player.nome);
                         printf("--------------------------------------\n");
                         scoreJogador++;
                         resetarJogo(&head, &tail);
@@ -461,18 +375,30 @@ int main(){
                         for(int i=0;i<2;i++){ 
                             extrairCarta(&head,&tail,&arrayJogador[i]);
                         }
+                        contadorDeCartas = 2;
+                        pontoDealer = calcularPontuacao(arrayDealer, 2);
+                        pontoJogador = calcularPontuacao(arrayJogador, contadorDeCartas);
+                        printf("\n");
+                        printf("Carta do dealer: %s",arrayDealer[0].carta);
+                        printf("\n");
+                        ordenarCartasDaMao(arrayJogador, contadorDeCartas);
+                        for(int i=0;i<contadorDeCartas;i++){
+                            printf("Carta de número %d do jogador: %s\n",i+1, arrayJogador[i].carta);
+                        }
                         printf("\n");
                     } 
                     else{
                         printf("--------------------------------------\n");
-                        printf("|            Dealer venceu!         AQUI 11  |\n");
+                        printf("|            Dealer venceu!          |\n");
                         printf("--------------------------------------\n");
+                        printf("Pontuação vitoriosa do dealer:\n%i\n", pontoDealer);
                         printf("Mão vitoriosa do dealer:\n");
                         for(int i=0;i<2;i++){ 
                             if (i==1) printf("%s",arrayDealer[i].carta);
                             else printf("%s e ",arrayDealer[i].carta);
                         }
-                        scoreDealer++;
+                        scoreJogador--;
+                        if (scoreJogador < 0) scoreJogador = 0;
                         resetarJogo(&head, &tail); 
                         adicionandoCartas(&head,&tail); 
                         
@@ -482,13 +408,26 @@ int main(){
                         for(int i=0;i<2;i++){ 
                             extrairCarta(&head,&tail,&arrayJogador[i]);
                         }
-                    } 
+                        contadorDeCartas = 2;
+                        pontoDealer = calcularPontuacao(arrayDealer, 2);
+                        pontoJogador = calcularPontuacao(arrayJogador, contadorDeCartas);
+                        printf("\n");
+                        printf("Carta do dealer: %s",arrayDealer[0].carta);
+                        printf("\n");
+                        ordenarCartasDaMao(arrayJogador, contadorDeCartas);
+                        for(int i=0;i<contadorDeCartas;i++){
+                            printf("Carta de número %d do jogador: %s\n",i+1, arrayJogador[i].carta);
+                        }
+                        printf("\n");
+                    }
+                    contadorRodadas++;
                 }
             }else if(escolha==3){
-                printf("Seu score era %.2f e passou a ser %.2f",scoreJogador,scoreJogador-0.5);
                 scoreJogador = scoreJogador - 0.5;
-                resetarJogo(&head, &tail); 
-                adicionandoCartas(&head,&tail); 
+                if (scoreJogador < 0) scoreJogador = 0;
+                contadorRodadas++;
+                resetarJogo(&head, &tail);
+                adicionandoCartas(&head,&tail);
                 
                 for(int i=0;i<2;i++){ 
                     extrairCarta(&head,&tail,&arrayDealer[i]);
@@ -496,64 +435,20 @@ int main(){
                 for(int i=0;i<2;i++){ 
                     extrairCarta(&head,&tail,&arrayJogador[i]);
                 }
+                contadorDeCartas = 2;
+                pontoDealer = calcularPontuacao(arrayDealer, 2);
+                pontoJogador = calcularPontuacao(arrayJogador, contadorDeCartas);
                 printf("\n");
-                for(int i=0;i<2;i++){ 
-                    printf("%s e ",arrayDealer[i].carta);
+                printf("Carta do dealer: %s",arrayDealer[0].carta);
+                printf("\n");
+                ordenarCartasDaMao(arrayJogador, contadorDeCartas);
+                for(int i=0;i<contadorDeCartas;i++){
+                    printf("Carta de número %d do jogador: %s\n",i+1, arrayJogador[i].carta);
                 }
                 printf("\n");
-                for(int i=0;i<2;i++){
-                    printf("%s e ",arrayJogador[i].carta);
-                }
-                printf("\n");
-                contadorDeCartas=2;
-                if(pontoDealer==21 && pontoJogador==21){
-                    printf("--------------------------------------\n");
-                    printf("|      Houve um empate na rodada     |\n");
-                    printf("--------------------------------------\n");
-                    resetarJogo(&head, &tail); 
-                    adicionandoCartas(&head,&tail); 
-                    
-                    for(int i=0;i<2;i++){ 
-                        extrairCarta(&head,&tail,&arrayDealer[i]);
-                    }
-                    for(int i=0;i<2;i++){ 
-                        extrairCarta(&head,&tail,&arrayJogador[i]);
-                    }
-                    printf("\n");
-                    printf("Carta do dealer: %s",arrayDealer[0].carta);
-                    printf("\n");
-                    ordenarCartasDaMao(arrayJogador, contadorDeCartas); 
-                    for(int i=0;i<2;i++){
-                        printf("Carta de número %d do jogador: %s\n",i+1, arrayJogador[i].carta);
-                    }
-                    printf("\n");
-                    contadorDeCartas=2;
-                }else if(pontoDealer==21){
-                    printf("--------------------------------------\n");
-                    printf("|            Dealer venceu!           |\n");
-                    printf("--------------------------------------\n");
-                    resetarJogo(&head, &tail); 
-                    adicionandoCartas(&head,&tail); 
-                    
-                    for(int i=0;i<2;i++){ 
-                        extrairCarta(&head,&tail,&arrayDealer[i]);
-                    }
-                    for(int i=0;i<2;i++){ 
-                        extrairCarta(&head,&tail,&arrayJogador[i]);
-                    }
-                    printf("\n");
-                    printf("Carta do dealer: %s",arrayDealer[0].carta);
-                    printf("\n");
-                    ordenarCartasDaMao(arrayJogador, contadorDeCartas); 
-                    for(int i=0;i<2;i++){
-                        printf("Carta de número %d do jogador: %s\n",i+1, arrayJogador[i].carta);
-                    }
-                    printf("\n");
-                    scoreDealer++;
-                    contadorDeCartas=2;
                 }else if(pontoJogador==21){
                     printf("--------------------------------------\n");
-                    printf("|              %s venceu!          AQUI 8   |\n",player.nome);
+                    printf("|              %s venceu!            |\n",player.nome);
                     printf("--------------------------------------\n");
                     resetarJogo(&head, &tail); 
                     adicionandoCartas(&head,&tail); 
@@ -575,9 +470,9 @@ int main(){
                     scoreJogador++;
                     contadorDeCartas=2;
                 }else if(pontoJogador>21){
-                    printf("---------------------------------------\n");
-                    printf("| Pontos estourados! Tente na próxima! AQUI 4|\n");
-                    printf("---------------------------------------\n");
+                    printf("----------------------------------------\n");
+                    printf("| Pontos estourados! Tente na próxima! |\n");
+                    printf("----------------------------------------\n");
                     resetarJogo(&head, &tail); 
                     adicionandoCartas(&head,&tail); 
                     
@@ -600,6 +495,13 @@ int main(){
                     printf("---------------------------------------\n");
                     printf("|Pontos do dealer estourados! Parabéns!|\n");
                     printf("---------------------------------------\n");
+                    scoreJogador--;
+                    if (scoreJogador < 0) scoreJogador = 0;
+                    contadorDeCartas=2;
+                }else if(pontoJogador>21){
+                    printf("----------------------------------------\n");
+                    printf("| Pontos estourados! Tente na próxima! |\n");
+                    printf("----------------------------------------\n");
                     resetarJogo(&head, &tail); 
                     adicionandoCartas(&head,&tail); 
                     
@@ -618,22 +520,43 @@ int main(){
                     }
                     printf("\n");
                     contadorDeCartas=2;
+                }else if(pontoDealer>21){
+                    printf("---------------------------------------\n");
+                    printf("|Pontos do dealer estourados! Parabéns!|\n");
+                    printf("---------------------------------------\n");
+                resetarJogo(&head, &tail); 
+                adicionandoCartas(&head,&tail); 
+                
+                for(int i=0;i<2;i++){ 
+                    extrairCarta(&head,&tail,&arrayDealer[i]);
                 }
+                for(int i=0;i<2;i++){ 
+                    extrairCarta(&head,&tail,&arrayJogador[i]);
+                }
+                printf("\n");
+                printf("Carta do dealer: %s",arrayDealer[0].carta);
+                printf("\n");
+                ordenarCartasDaMao(arrayJogador, contadorDeCartas); 
+                for(int i=0;i<2;i++){
+                    printf("Carta de número %d do jogador: %s\n",i+1, arrayJogador[i].carta);
+                }
+                printf("\n");
+                contadorDeCartas=2;
                 contadorRodadas++;
             }else if(escolha==4){
                 printf("\nCarta do Dealer: %s",arrayDealer[0].carta);
-            }else if(escolha==5){
-                pontoJogador = calcularPontuacao(arrayJogador, contadorDeCartas);
-                printf("\nSomatório cartas Jogador: %d\n",pontoJogador);
             }else{
-                printf("Resposta inválida! Escolha [1], [2], [3], [4] ou [5]!");
-                continue;
+                printf("Resposta inválida! Escolha [1], [2], [3] ou [4].");
             }
         }
     }
+    printf("--------------------------------------\n");
+    printf("|             Fim de Jogo!           |\n");
+    printf("--------------------------------------\n");
+    printf("%s, sua PONTUAÇÃO foi: %.1f\n",player.nome, player.pontuacao);
 
     printf("\n");
-    player.pontuacao = scoreJogador;  
+    player.pontuacao = scoreJogador;
     fptr = fopen("score.txt", "a");
     if(fptr!=NULL){
         fwrite(&player, sizeof(struct jogador), 1, fptr);
@@ -664,7 +587,7 @@ void ordenarLista(struct highscore **cabeca, struct jogador player){
     }
     novo->player = player;
     novo->prox = NULL;
-    if(*cabeca==NULL || (*cabeca)->player.pontuacao<=player.pontuacao){
+    if(*cabeca==NULL || (*cabeca)->player.pontuacao<player.pontuacao){
         novo->prox = *cabeca;
         *cabeca = novo;
     }else{
@@ -689,7 +612,7 @@ void printarLista(struct highscore *cabeca){
     while(cabeca!=NULL && posicao<=3){
         printf("%dº colocado:\n", posicao);
         printf("Nome: %s\n", cabeca->player.nome);
-        printf("Pontuação: %d\n", cabeca->player.pontuacao);
+        printf("Pontuação: %.1f\n", cabeca->player.pontuacao);
         cabeca = cabeca->prox;
         posicao++;
     }
