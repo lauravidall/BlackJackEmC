@@ -167,6 +167,9 @@ int main(){
             pontoDealer = calcularPontuacao(arrayDealer, 2);
             pontoJogador = calcularPontuacao(arrayJogador, contadorDeCartas);
             printf("\n");
+            printf("Carta do dealer: %s",arrayDealer[0].carta);
+            printf("\n");
+            printf("\n");
             ordenarCartasDaMao(arrayJogador, contadorDeCartas);
             for(int i=0;i<contadorDeCartas;i++){
                 printf("Carta de número %d do jogador: %s\n",i+1, arrayJogador[i].carta);
